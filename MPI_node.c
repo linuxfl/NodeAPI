@@ -30,6 +30,7 @@ int MPIN_init(char *path,int size){
 		strcpy(arraynode[i].name,para);
 		arraynode[i].id = i;
 		arraynode[i].psize = atoi(value);
+		arraynode[i].allocsize = 0;
 		i++;
 	}
 	if(line)
@@ -48,6 +49,7 @@ int MPIN_init(char *path,int size){
 				rank++;
 				if(rank > PROCESS_SIZE){
 					arraynode[i].allocsize = j+filler_round*(arraynode[i].psize);
+					NODE_SIZE = i;
 					goto BREAK;
 				}
 				j++;
@@ -140,4 +142,16 @@ int MPIN_get_node_by_rank(int rank)
 		return -1;
 	return process[rank];
 }
+//test
+/*
+int main(int argc,char **argv)
+{
+	if(argc < 2){
+		printf("least 2 argument!\n");
+		exit(-1);
+	}
+	MPIN_init("./hostfile",atoi(argv[1]));
+	printf("the node size : %d\n",NODE_SIZE);	
+	printf("the node process size : %d\n",MPIN_get_node_process_size(4));	
+}*/
 
