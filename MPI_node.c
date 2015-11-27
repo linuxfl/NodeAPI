@@ -49,7 +49,8 @@ int MPIN_init(char *path,int size){
 				rank++;
 				if(rank > PROCESS_SIZE){
 					arraynode[i].allocsize = j+filler_round*(arraynode[i].psize);
-					NODE_SIZE = i;
+					if(filler_round == 0)
+						NODE_SIZE = i;
 					goto BREAK;
 				}
 				j++;
